@@ -121,6 +121,6 @@ Colaborações sérias, melhorias estruturais e análises técnicas são sempre 
 # 📬 Contato
 
 Para parcerias, pesquisa, validação técnica ou uso governamental:  
-✉️ **edersouzademelo@gmail.com**
+✉️ **edersouzamelo@gmail.com**
 
 
