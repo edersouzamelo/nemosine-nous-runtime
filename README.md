@@ -1,20 +1,21 @@
 # 🧠 Nemosine Nous ©
 
-## ⚙️ AME Hardened Baseline (v0.8.2-AME)
+## ⚙️ AME Hardened Baseline (v0.8.3-AME)
 
 Este repositório passou a incluir uma Executable Minimal Architecture (AME) com hardening completo (H0–H6.1), executável, determinística e auditável, na qual o motor de linguagem (LLM) é explicitamente subordinado a um orquestrador externo.
 
 Este baseline AME é:
 - Executável (não apenas conceitual)
 - Determinístico e não-agentic
-- Auditável via registro estrutural
+- Auditável via registro estrutural append-only
+- Persistente (registro em JSONL)
 - Projetado como fundação arquitetural, não como produto final
 
 IMPORTANTE:
 A AME não é um agente autônomo, não decide fluxo e não governa o sistema.
 Trata-se de uma arquitetura mínima executável hardened, usada como base técnica.
 
-Estado AME hardened ancorado no tag: v0.8.2-AME
+Estado AME hardened ancorado no tag: v0.8.3-AME
 
 ------------------------------------------------------------
 
@@ -25,9 +26,18 @@ Este repositório contém também a Prova de Conceito oficial do Sistema Cogniti
 - Backend FastAPI (Python)
 - Frontend React
 - API externa de linguagem (OpenAI ChatGPT-4o)
+- Orchestrator determinístico
+- Registro persistente de ciclos
 - Isolamento seguro da API Key via .env
 
 A PoC representa o fluxo cognitivo mínimo funcional do Nemosine Nous quando acoplado a um motor externo de linguagem.
+
+Inclui endpoints estruturais adicionais:
+- /chat
+- /ame/last
+- /ame/tail
+- /ame/stats
+- /health
 
 ------------------------------------------------------------
 
@@ -38,6 +48,7 @@ A PoC representa o fluxo cognitivo mínimo funcional do Nemosine Nous quando aco
 - Uvicorn
 - python-dotenv
 - OpenAI / ChatGPT-4o API
+- Registro persistente JSONL (append-only)
 
 ------------------------------------------------------------
 
@@ -47,6 +58,7 @@ A PoC representa o fluxo cognitivo mínimo funcional do Nemosine Nous quando aco
 - Vite
 - Axios
 - CSS (Dark Theme personalizado)
+- Painel técnico de inspeção de ciclos
 
 ------------------------------------------------------------
 
@@ -55,6 +67,14 @@ A PoC representa o fluxo cognitivo mínimo funcional do Nemosine Nous quando aco
 nemosine-PoC-api-4o/
 │
 ├── backend/
+│   ├── ame/
+│   │   ├── orchestrator.py
+│   │   ├── registry.py
+│   │   ├── motor_openai.py
+│   │   ├── models.py
+│   │   └── config.py
+│   ├── data/
+│   │   └── ame_cycles.jsonl
 │   ├── main.py
 │   ├── requirements.txt
 │   └── .env (não incluído)
@@ -75,7 +95,7 @@ nemosine-PoC-api-4o/
 Comandos:
 cd backend
 pip install -r requirements.txt
-uvicorn main:app --reload
+uvicorn main:app --reload --port 8000
 
 Criar arquivo .env:
 OPENAI_API_KEY=your_key_here
@@ -90,7 +110,7 @@ npm install
 npm run dev
 
 Acessar:
-http://localhost:3000
+http://localhost:5173
 
 ------------------------------------------------------------
 
@@ -121,8 +141,9 @@ Colaborações sérias, melhorias estruturais e análises técnicas são bem-vin
 ## 📌 Status do Projeto
 
 - Prova de Conceito funcional (FastAPI + React)
-- AME hardened, executável e auditável
-- Subordinação explícita do LLM
+- AME hardened, executável, persistente e auditável
+- Subordinação explícita do LLM ao Orchestrator
+- Registro estrutural append-only
 - Base arquitetural para evoluções futuras
 
 ------------------------------------------------------------
@@ -137,5 +158,5 @@ Email: edersouzamelo@gmail.com
 ## 🛠️ Commit sugerido
 
 git add README.md
-git commit -m "Document AME hardened baseline (v0.8.2-AME)"
+git commit -m "Update AME baseline to v0.8.3-AME (persistent runtime)"
 git push
